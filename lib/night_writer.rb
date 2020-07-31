@@ -16,12 +16,12 @@ class NightWriter
     print_output(@braille_filename, plain_file)
   end
 
-  def print_output(braille_filename, plain_file)
-    puts "Created '#{braille_filename}' containing #{plain_file.length} characters"
-  end
-
   def write
     @braille_text = "test"
     @braille_file = File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
+  end
+
+  def print_output(braille_filename, plain_file)
+    puts "Created '#{braille_filename}' containing #{plain_file.length} characters"
   end
 end
