@@ -25,10 +25,11 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_assert_it_can_read_a_file_and_has_readable_attr
-    assert_instance_of String, @writer.plain_text
+    assert_instance_of String, @writer.plain_file
   end
 
   def test_it_can_write_a_file
-
+    skip
+    assert_instance_of String, @writer.braille_file
   end
 end
