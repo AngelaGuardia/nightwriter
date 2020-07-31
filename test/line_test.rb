@@ -10,4 +10,8 @@ class LineTest < Minitest::Test
   def test_it_exists
     assert_instance_of Line, @line
   end
+
+  def test_it_has_readable_attributes
+    assert_equal [], @line.characters
+  end
 end
