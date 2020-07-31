@@ -14,4 +14,11 @@ class LineTest < Minitest::Test
   def test_it_has_readable_attributes
     assert_equal [], @line.characters
   end
+
+  def test_it_can_add_characters
+    chr1 = Character.new("b", "12")
+    @line.add_character(chr1)
+    assert_equal [chr1], @line.characters
+  end
+
 end
