@@ -13,4 +13,12 @@ class Dot
   def on?
     @is_on
   end
+
+  def render
+    if on?
+      "0"
+    else
+      "."
+    end
+  end
 end
