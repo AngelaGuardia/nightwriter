@@ -16,7 +16,16 @@ class CharacterTest < Minitest::Test
   end
 
   def test_it_can_create_and_read_dots
-    assert_equal true, @character.dots.all? { |dot| dot.class == Dot }
+    assert_equal true, @character.dots.all? { |num, dot| dot.class == Dot }
     assert_equal 6, @character.dots.length
+  end
+
+  def test_it_can_turn_on_dots
+    assert_equal true, @character.dots["1"].on?
+    assert_equal true, @character.dots["2"].on?
+    assert_equal false, @character.dots["3"].on?
+    assert_equal false, @character.dots["4"].on?
+    assert_equal false, @character.dots["5"].on?
+    assert_equal false, @character.dots["6"].on?
   end
 end
