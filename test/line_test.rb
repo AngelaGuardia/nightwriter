@@ -42,4 +42,13 @@ class LineTest < Minitest::Test
     assert_equal true, @line.characters.all? { |char| char.class == Character }
     assert_equal "h", @line.characters[0].symbol
   end
+
+  def test_it_can_render_itself
+    symbols = ["h", "e", "l", "l", "o"]
+    @line.generate_characters(symbols)
+
+    expected =  "0.0.0.0.0.\n00.00.0..0\n....0.0.0."
+
+    assert_equal expected, @line.render
+  end
 end
