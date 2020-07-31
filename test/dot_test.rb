@@ -14,4 +14,9 @@ class DotTest < Minitest::Test
     assert_equal 1, @dot.number
     assert_equal false, @dot.is_on
   end
+
+  def test_it_can_turn_on
+    @dot.turn_on
+    assert_equal true, @dot.is_on
+  end
 end
