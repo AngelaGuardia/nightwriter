@@ -1,6 +1,6 @@
 class Line
   attr_reader :characters
-  
+
   def initialize
     @characters = []
   end
@@ -9,4 +9,7 @@ class Line
     @characters << character
   end
 
+  def length
+    @characters.size
+  end
 end
