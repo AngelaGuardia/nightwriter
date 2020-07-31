@@ -22,4 +22,16 @@ class Line
       add_character(Character.new(symbol, @dictionary.get(symbol)))
     end
   end
+
+  def render
+    line = ""
+    3.times do |i|
+      row = i + 1
+      @characters.each do |character|
+        line += character.render_row(row)
+        line += "\n" if @characters.last == character && row != 3
+      end
+    end
+    line
+  end
 end
