@@ -1,6 +1,5 @@
 class Dot
-  attr_reader :number,
-              :is_on
+  attr_reader :number
 
   def initialize(number)
     @number = number
@@ -9,5 +8,9 @@ class Dot
 
   def turn_on
     @is_on = true
+  end
+
+  def on?
+    @is_on
   end
 end
