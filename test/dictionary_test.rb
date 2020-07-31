@@ -18,4 +18,8 @@ class DictionaryTest < Minitest::Test
   def test_it_generates_dictionary_from_file
     assert_equal 26, @dictionary.dictionary.length
   end
+
+  def test_it_can_get_a_value
+    assert_equal "12", @dictionary.get("b")
+  end
 end
