@@ -25,4 +25,10 @@ class DotTest < Minitest::Test
     @dot.turn_on
     assert_equal true, @dot.on?
   end
+
+  def test_it_can_render_itself
+    assert_equal ".", @dot.render
+    @dot.turn_on
+    assert_equal "0", @dot.render
+  end
 end
