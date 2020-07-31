@@ -16,7 +16,7 @@ class NightWriterTest < Minitest::Test
     assert_equal 2, ARGV.length
   end
 
-  def test_assert_it_can_read_a_file
+  def test_assert_it_can_read_a_file_and_has_readable_attr
     assert_instance_of String, @writer.plain_text
   end
 end
