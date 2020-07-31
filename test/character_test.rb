@@ -30,8 +30,8 @@ class CharacterTest < Minitest::Test
   end
 
   def test_it_can_render_by_row
-    assert_equal "0.", @character.render_row1
-    assert_equal "0.", @character.render_row2
-    assert_equal "..", @character.render_row3
+    assert_equal "0.", @character.render_row(1)
+    assert_equal "0.", @character.render_row(2)
+    assert_equal "..", @character.render_row(3)
   end
 end
