@@ -18,11 +18,10 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_it_has_readable_attributes
-    NightWriter.stub_const(:ARGV, ["plain_file", "braille_file"]) do
-      NightWriter::ARGV
-    end
-    assert_equal "plain_file", @writer.plain_filename
-    assert_equal "braille_file", @writer.braille_filename
+    # Object.stub_const(:ARGV, ["plain_file", "braille_file"]) do
+      assert_equal "message.txt", @writer.plain_filename
+      assert_equal "braille.txt", @writer.braille_filename
+    # end
   end
 
   def test_assert_it_can_read_a_file_and_has_readable_attr
