@@ -33,4 +33,13 @@ class LineTest < Minitest::Test
     @line.add_character(chr2)
     assert_equal 2, @line.length
   end
+
+  def test_it_can_generate_characters
+    symbols = ["h", "e", "l", "l", "o"]
+    @line.generate_characters(symbols)
+
+    assert_equal 5, @line.length
+    assert_equal true, @line.characters.all? { |char| char.class == Character }
+    assert_equal "h", @line.characters[0].symbol
+  end
 end
