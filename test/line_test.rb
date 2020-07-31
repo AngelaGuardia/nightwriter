@@ -21,4 +21,16 @@ class LineTest < Minitest::Test
     assert_equal [chr1], @line.characters
   end
 
+  def test_it_knows_its_length
+    chr1 = Character.new("b", "12")
+    chr2 = Character.new("a", "1")
+
+    assert_equal 0, @line.length
+
+    @line.add_character(chr1)
+    assert_equal 1, @line.length
+
+    @line.add_character(chr2)
+    assert_equal 2, @line.length
+  end
 end
