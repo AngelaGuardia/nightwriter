@@ -13,4 +13,8 @@ class Dictionary
       @dictionary[row[:character]] = row[:nums]
     end
   end
+
+  def get(value)
+    @dictionary[value]
+  end
 end
