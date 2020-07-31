@@ -19,4 +19,8 @@ class NightWriterTest < Minitest::Test
   def test_assert_it_can_read_a_file_and_has_readable_attr
     assert_instance_of String, @writer.plain_text
   end
+
+  def test_it_can_write_a_file
+
+  end
 end
