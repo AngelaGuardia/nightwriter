@@ -4,4 +4,9 @@ class Line
   def initialize
     @characters = []
   end
+
+  def add_character(character)
+    @characters << character
+  end
+
 end
