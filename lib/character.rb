@@ -22,4 +22,16 @@ class Character
   def turn_on_dots
     dot_nums.each { |num| @dots[num].turn_on }
   end
+
+  def render_row1
+    "#{@dots["1"].render}#{@dots["4"].render}"
+  end
+
+  def render_row2
+    "#{@dots["2"].render}#{@dots["5"].render}"
+  end
+
+  def render_row3
+    "#{@dots["3"].render}#{@dots["6"].render}"
+  end
 end
