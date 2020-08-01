@@ -13,8 +13,7 @@ class NightReader
   end
 
   def write
-    @translated_text = translate_braille
-    File.open(@translated_filename, "w") { |f| f.write(@translated_text) }
+    File.open(@translated_filename, "w") { |f| f.write(translate_braille) }
     @translated_file = File.read(@translated_filename)
   end
 
