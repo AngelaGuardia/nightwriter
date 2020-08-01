@@ -15,27 +15,29 @@ class NightWriter
 
   def read
     @plain_file = File.read(@plain_filename).delete("\n")
-    print_output(@braille_filename, plain_file)
   end
 
   def write
     @braille_text = write_braille
-    @braille_file = File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
+    File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
+    @braille_file = File.read(@braille_filename)
+    puts confirmation_message
   end
 
   def write_braille
-    text = ""
-    strings = @plain_file.downcase.scan(/.{1,40}/)
-    strings.each do |string|
+    split_strings.reduce("") do |text, string|
       line = Line.new(string)
-      line.generate_characters
       text += line.render
-      text += "\n" unless string == strings.last
+      text += "\n" unless string == split_strings.last
+      text
     end
-    text
   end
 
-  def print_output(braille_filename, plain_file)
-    puts "Created '#{braille_filename}' containing #{plain_file.length} characters"
+  def split_strings
+    plain_file.downcase.scan(/.{1,40}/)
+  end
+
+  def confirmation_message
+    "Created '#{@braille_filename}' containing #{@plain_file.length} characters"
   end
 end
