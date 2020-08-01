@@ -6,11 +6,11 @@ require 'mocha/minitest'
 class NightWriterTest < Minitest::Test
   def setup
     NightWriter.any_instance.stubs(:print_output)
-    @writer = NightWriter.new
   end
 
   def test_it_exists
-    assert_instance_of NightWriter, @writer
+    writer = NightWriter.new
+    assert_instance_of NightWriter, writer
   end
 
   def test_it_takes_in_command_line_arguments
