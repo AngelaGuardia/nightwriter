@@ -19,5 +19,15 @@ class NightReaderTest < Minitest::Test
     end
   end
 
+  def test_it_can_read_a_file
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = NightReader.new
 
+      expected =  "0.0.0.0.0....00.0.0.00\n" +
+                  "00.00.0..0..00.0000..0\n" +
+                  "....0.0.0....00.0.0..."
+
+      assert_equal expected, reader.read
+    end
+  end
 end
