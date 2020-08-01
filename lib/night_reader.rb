@@ -17,4 +17,8 @@ class NightReader
     File.open(@translated_filename, "w") { |f| f.write(@translated_text) }
     @translated_file = File.read(@translated_filename)
   end
+
+  def confirmation_message
+    "Created '#{@translated_filename}' containing #{translated_file.length} characters"
+  end
 end
