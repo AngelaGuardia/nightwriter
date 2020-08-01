@@ -5,7 +5,7 @@ require 'mocha/minitest'
 
 class NightWriterTest < Minitest::Test
   def setup
-    NightWriter.any_instance.stubs(:print_output)
+    NightWriter.any_instance.stubs(:puts)
   end
 
   def test_it_exists
@@ -65,6 +65,14 @@ class NightWriterTest < Minitest::Test
                   "....0.0.0....00.0.0..."
 
       assert_equal expected, writer.braille_file
+    end
+  end
+
+  def test_it_can_print_confirmation_message
+    Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
+      writer = NightWriter.new
+      expected = "Created 'braille.txt' containing 11 characters"
+      assert_equal expected, writer.confirmation_message
     end
   end
 end
