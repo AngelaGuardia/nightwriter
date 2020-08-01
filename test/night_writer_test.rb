@@ -14,7 +14,7 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_it_takes_in_command_line_arguments
-    assert_equal 2, ARGV.length
+    assert_equal true, ARGV.length > 0
   end
 
   def test_it_has_readable_attributes
