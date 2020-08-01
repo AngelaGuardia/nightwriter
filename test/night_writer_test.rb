@@ -17,11 +17,20 @@ class NightWriterTest < Minitest::Test
     assert_equal true, ARGV.length > 0
   end
 
-  def test_it_has_readable_attributes
-    # Object.stub_const(:ARGV, ["plain_file", "braille_file"]) do
-      assert_equal "message.txt", @writer.plain_filename
-      assert_equal "braille.txt", @writer.braille_filename
-    # end
+  def test_it_can_read_filename_attributes
+    File.stubs(:read).returns("test string")
+    Object.stub_const(:ARGV, ["plain", "braille"]) do
+      writer2 = NightWriter.new
+      assert_equal "plain", writer2.plain_filename
+      assert_equal "braille", writer2.braille_filename
+    end
+  end
+
+  def test_it_can_read_other_attributes
+    File.stubs(:read).returns("test string")
+    writer = NightWriter.new
+
+    assert_equal "test string", writer.plain_file
   end
 
   def test_assert_it_can_read_a_file_and_has_readable_attr
