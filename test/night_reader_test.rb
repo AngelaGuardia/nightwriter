@@ -30,4 +30,14 @@ class NightReaderTest < Minitest::Test
       assert_equal expected, reader.read
     end
   end
+
+  def test_it_can_write_a_file
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      NightReader.any_instance.stubs(:translate_braille).returns("I can translate")
+      reader = NightReader.new
+      reader.write
+
+      assert_equal "I can translate", reader.translated_file
+    end
+  end
 end
