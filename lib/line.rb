@@ -8,7 +8,7 @@ class Line
     @characters = []
     @dictionary = Dictionary.new
     @symbols = string.split(//)
-    # generate_characters
+    generate_characters
   end
 
   def add_character(character)
