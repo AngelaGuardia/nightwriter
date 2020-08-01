@@ -28,4 +28,10 @@ class CharacterTest < Minitest::Test
     assert_equal false, @character.dots["5"].on?
     assert_equal false, @character.dots["6"].on?
   end
+
+  def test_it_can_render_by_row
+    assert_equal "0.", @character.render_row(1)
+    assert_equal "0.", @character.render_row(2)
+    assert_equal "..", @character.render_row(3)
+  end
 end
