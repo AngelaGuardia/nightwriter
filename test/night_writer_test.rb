@@ -75,4 +75,16 @@ class NightWriterTest < Minitest::Test
       assert_equal expected, writer.confirmation_message
     end
   end
+
+  def test_it_can_split_strings
+    str = "01234567890123456789012345678901234567890123456789"
+    NightWriter.any_instance.stubs(:plain_file).returns(str)
+    NightWriter.any_instance.stubs(:read)
+    NightWriter.any_instance.stubs(:write)
+    writer = NightWriter.new
+
+    expected = ["0123456789012345678901234567890123456789", "0123456789"]
+
+    assert_equal expected, writer.split_strings
+  end
 end
