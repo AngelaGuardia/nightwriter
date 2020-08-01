@@ -47,7 +47,9 @@ class LineTest < Minitest::Test
     symbols = ["h", "e", "l", "l", "o"]
     @line.generate_characters(symbols)
 
-    expected =  "0.0.0.0.0.\n00.00.0..0\n....0.0.0."
+    expected =  "0.0.0.0.0.\n" +
+                "00.00.0..0\n" +
+                "....0.0.0."
 
     assert_equal expected, @line.render
   end
