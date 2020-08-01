@@ -4,7 +4,8 @@ require './lib/line'
 
 class LineTest < Minitest::Test
   def setup
-    @line = Line.new
+    string = "hello"
+    @line = Line.new(string)
   end
 
   def test_it_exists
@@ -35,8 +36,7 @@ class LineTest < Minitest::Test
   end
 
   def test_it_can_generate_characters
-    symbols = ["h", "e", "l", "l", "o"]
-    @line.generate_characters(symbols)
+    @line.generate_characters
 
     assert_equal 5, @line.length
     assert_equal true, @line.characters.all? { |char| char.class == Character }
@@ -44,8 +44,7 @@ class LineTest < Minitest::Test
   end
 
   def test_it_can_render_itself
-    symbols = ["h", "e", "l", "l", "o"]
-    @line.generate_characters(symbols)
+    @line.generate_characters
 
     expected =  "0.0.0.0.0.\n" +
                 "00.00.0..0\n" +

@@ -32,4 +32,8 @@ class NightWriterTest < Minitest::Test
     skip
     assert_instance_of String, @writer.braille_file
   end
+
+  def test_it_can_write_braille
+
+  end
 end

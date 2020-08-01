@@ -4,9 +4,11 @@ require './lib/dictionary'
 class Line
   attr_reader :characters
 
-  def initialize
+  def initialize(string)
     @characters = []
     @dictionary = Dictionary.new
+    @symbols = string.split(//)
+    # generate_characters
   end
 
   def add_character(character)
@@ -17,8 +19,8 @@ class Line
     @characters.size
   end
 
-  def generate_characters(symbols)
-    symbols.each do |symbol|
+  def generate_characters
+    @symbols.each do |symbol|
       add_character(Character.new(symbol, @dictionary.get(symbol)))
     end
   end
