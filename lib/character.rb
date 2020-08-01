@@ -10,7 +10,7 @@ class Character
     @dot_nums = dot_nums.split(//)
     @dots = {}
     create_dots
-    turn_on_dots
+    turn_on_dots unless dot_nums == "0"
   end
 
   def create_dots
