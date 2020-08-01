@@ -20,7 +20,8 @@ class NightWriter
 
   def write
     @braille_text = write_braille
-    @braille_file = File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
+    File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
+    @braille_file = File.read(@braille_filename)
   end
 
   def write_braille
