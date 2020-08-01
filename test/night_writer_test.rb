@@ -47,11 +47,10 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_write_a_file
     Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
+      NightWriter.any_instance.stubs(:write_braille).returns("I can write")
       writer = NightWriter.new
 
-      expected =  "0.0.0.0.0....00.0.0.00\n" +
-                  "00.00.0..0..00.0000..0\n" +
-                  "....0.0.0....00.0.0..."
+      expected =  "I can write"
 
       assert_equal expected, writer.braille_file
     end
