@@ -22,4 +22,10 @@ class DictionaryTest < Minitest::Test
   def test_it_can_get_a_value
     assert_equal "12", @dictionary.get("b")
   end
+
+  def test_it_can_make_a_translator
+    translator = Dictionary.new(true)
+
+    assert_equal "b", translator.get("12")
+  end
 end
