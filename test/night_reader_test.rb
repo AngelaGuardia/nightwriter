@@ -70,4 +70,13 @@ class NightReaderTest < Minitest::Test
       assert_equal expected, reader.translate_braille
     end
   end
+
+  def test_it_can_translate_braille_to_braille_nums
+    reader = NightReader.new
+    row = ["0.", ".0", "00", ".."]
+
+    assert_equal ["1", "4", "14", ""], reader.braille_nums_row1(row)
+    assert_equal ["2", "5", "25", ""], reader.braille_nums_row2(row)
+    assert_equal ["3", "6", "36", ""], reader.braille_nums_row3(row)
+  end
 end
