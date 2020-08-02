@@ -50,4 +50,14 @@ class NightReaderTest < Minitest::Test
       assert_equal expected, reader.confirmation_message
     end
   end
+
+  def test_it_can_translate_braille
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = NightReader.new
+
+      expected = "hello world"
+
+      assert_equal expected, reader.translate_braille
+    end
+  end
 end
