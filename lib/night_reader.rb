@@ -1,3 +1,5 @@
+require './lib/dictionary'
+
 class NightReader
   attr_reader :braille_filename,
               :translated_filename,
@@ -23,13 +25,12 @@ class NightReader
 
   def translate_braille
     translator = Dictionary.new(true)
-    braille_rows = @braille_file.split(//)
+    braille_rows = @braille_file.split("\n")
     translation = ""
     row1, row2, row3 = [], [], []
-
     while !braille_rows.empty?
       braille_line = braille_rows.slice!(0, 3)
-      braille_file.each_with_index do |row, index|
+      braille_line.each_with_index do |row, index|
         character_pairs = row.scan(/.{2}/)
         if index == 0
           row1 = braille_nums_row1(character_pairs)
@@ -50,10 +51,10 @@ class NightReader
         end
       end
 
-      translated_characters = braille_nums_by_character_sorted.map { |nums| translator[nums]}
-
-      result += translated_characters.join
+      translated_characters = braille_nums_by_character_sorted.map { |nums| translator.get(nums)}
+      translation += translated_characters.join
     end
+    translation
   end
 
   def braille_nums_row1(row)
