@@ -42,15 +42,7 @@ class NightReader
       end
 
       braille_nums_by_character = row1.zip(row2, row3)
-
-      braille_nums_by_character_sorted = braille_nums_by_character.map do |nums|
-        if nums.join == ""
-          "0"
-        else
-          nums.join.split(//).sort.join
-        end
-      end
-
+      braille_nums_by_character_sorted = join_and_sort_braille_nums_by_character(braille_nums_by_character)
       translated_characters = braille_nums_by_character_sorted.map { |nums| translator.get(nums)}
       translation += translated_characters.join
     end
@@ -81,6 +73,16 @@ class NightReader
       new += "3" if chars[0] == "0"
       new += "6" if chars[1] == "0"
       new
+    end
+  end
+
+  def join_and_sort_braille_nums_by_character(braille_nums_by_character)
+    braille_nums_by_character.map do |nums|
+      if nums.join == ""
+        "0"
+      else
+        nums.join.split(//).sort.join
+      end
     end
   end
 end
