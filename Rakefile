@@ -1,7 +1,6 @@
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
-  require "pry"; binding.pry
     t.pattern = "test/**/*_test.rb"
 end
 
