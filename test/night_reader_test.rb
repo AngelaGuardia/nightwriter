@@ -9,8 +9,9 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_exists
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
+    NightReader.any_instance.stubs(:confirmation_message)
 
     reader = NightReader.new
 
@@ -18,13 +19,14 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_can_read_filename_attributes
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
+    NightReader.any_instance.stubs(:confirmation_message)
     Object.stub_const(:ARGV, ["braille", "translated"]) do
       reader = NightReader.new
 
-      assert_equal "braille", reader.braille_filename
-      assert_equal "translated", reader.translated_filename
+      assert_equal "braille", reader.input_filename
+      assert_equal "translated", reader.output_filename
     end
   end
 
@@ -34,7 +36,7 @@ class NightReaderTest < Minitest::Test
 
       expected =  "0.0.0.0.0....00.0.0.00\n" +
                   "00.00.0..0..00.0000..0\n" +
-                  "....0.0.0....00.0.0..."
+                  "....0.0.0....00.0.0...\n"
 
       assert_equal expected, reader.read
     end
@@ -42,18 +44,18 @@ class NightReaderTest < Minitest::Test
 
   def test_it_can_write_a_file
     Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
-      NightReader.any_instance.stubs(:translate_braille).returns("I can translate")
+      NightReader.any_instance.stubs(:translate).returns("I can translate")
       reader = NightReader.new
       reader.write
 
-      assert_equal "I can translate", reader.translated_file
+      assert_equal "I can translate", reader.output_file
     end
   end
 
   def test_it_can_print_confirmation_message
     Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
       reader = NightReader.new
-      reader.stubs(:translated_file).returns("hello world")
+      reader.stubs(:output_file).returns("hello world")
       expected = "Created 'original_message.txt' containing 11 characters"
 
       assert_equal expected, reader.confirmation_message
@@ -66,7 +68,7 @@ class NightReaderTest < Minitest::Test
       reader.read
       expected = "hello world"
 
-      assert_equal expected, reader.translate_braille
+      assert_equal expected, reader.translate
     end
   end
 
@@ -76,13 +78,14 @@ class NightReaderTest < Minitest::Test
       reader.read
       expected = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-      assert_equal expected, reader.translate_braille
+      assert_equal expected, reader.translate
     end
   end
 
   def test_it_can_translate_braille_row_to_braille_nums
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
+    NightReader.any_instance.stubs(:confirmation_message)
     reader = NightReader.new
     row = ["0.", ".0", "00", ".."]
 
