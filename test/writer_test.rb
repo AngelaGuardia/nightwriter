@@ -9,13 +9,12 @@ class WriterTest < Minitest::Test
   end
 
   def test_it_exists
+    Writer.any_instance.stubs(:read).returns("test string")
+    Writer.any_instance.stubs(:write)
+    Writer.any_instance.stubs(:confirmation_message)
     writer = Writer.new
 
     assert_instance_of Writer, writer
-  end
-
-  def test_it_takes_in_command_line_arguments
-    assert_equal true, ARGV.length > 0
   end
 
   def test_it_can_read_filename_attributes
@@ -27,13 +26,6 @@ class WriterTest < Minitest::Test
       assert_equal "plain", writer2.input_filename
       assert_equal "braille", writer2.output_filename
     end
-  end
-
-  def test_it_can_read_other_attributes
-    File.stubs(:read).returns("stubbed")
-    writer = Writer.new
-
-    assert_equal "stubbed", writer.input_file
   end
 
   def test_assert_it_can_read_a_file
