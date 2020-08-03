@@ -81,6 +81,7 @@ class NightWriterTest < Minitest::Test
     NightWriter.any_instance.stubs(:input_file).returns(str)
     NightWriter.any_instance.stubs(:read)
     NightWriter.any_instance.stubs(:write)
+    NightWriter.any_instance.stubs(:confirmation_message)
     writer = NightWriter.new
 
     expected = ["0123456789012345678901234567890123456789", "0123456789"]

@@ -11,6 +11,7 @@ class NightWriter
     @output_filename = ARGV[1]
     read
     write
+    puts confirmation_message
   end
 
   def read
@@ -20,7 +21,6 @@ class NightWriter
   def write
     File.open(@output_filename, "w") { |f| f.write(translate) }
     @output_file = File.read(@output_filename)
-    puts confirmation_message
   end
 
   def translate
