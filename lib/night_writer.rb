@@ -41,3 +41,5 @@ class NightWriter
     "Created '#{@braille_filename}' containing #{@plain_file.length} characters"
   end
 end
+
+NightWriter.new

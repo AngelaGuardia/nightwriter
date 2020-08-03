@@ -91,3 +91,5 @@ class NightReader
     end
   end
 end
+
+NightReader.new
