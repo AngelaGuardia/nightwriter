@@ -125,4 +125,27 @@ class ReaderTest < Minitest::Test
       assert_equal expected, reader.braille_line_to_braille_nums(braille_line)
     end
   end
+
+  def test_it_can_translate_braille_line_to_braille_nums
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = Reader.new
+      braille_line = ["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."]
+
+      expected = [["1", "1", "1", "1", "1", "", "4", "1", "1", "1", "14"], ["25", "5", "2", "2", "5", "", "25", "5", "25", "2", "5"], ["", "", "3", "3", "3", "", "6", "3", "3", "3", ""]]
+
+      assert_equal expected, reader.braille_line_to_braille_nums(braille_line)
+    end
+  end
+
+  def test_it_can_translate_line
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = Reader.new
+      braille_line = ["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."]
+
+      expected = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
+
+      assert_equal expected, reader.translate_line(braille_line)
+    end
+  end
+
 end
