@@ -4,6 +4,10 @@ require 'minitest/stub_const'
 require 'mocha/minitest'
 
 class NightReaderTest < Minitest::Test
+  def setup
+    NightReader.any_instance.stubs(:puts)
+  end
+
   def test_it_exists
     NightReader.any_instance.stubs(:read)
     NightReader.any_instance.stubs(:write)
