@@ -71,12 +71,33 @@ class NightReaderTest < Minitest::Test
     end
   end
 
-  def test_it_can_translate_braille_to_braille_nums
+  def test_it_can_translate_braille_row_to_braille_nums
     reader = NightReader.new
     row = ["0.", ".0", "00", ".."]
 
     assert_equal ["1", "4", "14", ""], reader.braille_nums_row1(row)
     assert_equal ["2", "5", "25", ""], reader.braille_nums_row2(row)
     assert_equal ["3", "6", "36", ""], reader.braille_nums_row3(row)
+  end
+
+  def test_it_can_sort_braille_nums_by_character
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = NightReader.new
+      braille_nums_by_character = [["1", "25", ""],
+                                   ["1", "5", ""],
+                                   ["1", "2", "3"],
+                                   ["1", "2", "3"],
+                                   ["1", "5", "3"],
+                                   ["", "", ""],
+                                   ["4", "25", "6"],
+                                   ["1", "5", "3"],
+                                   ["1", "25", "3"],
+                                   ["1", "2", "3"],
+                                   ["14", "5", ""]]
+
+      expected = ["125", "15", "123", "123", "135", "0", "2456", "135", "1235", "123", "145"]
+
+      assert_equal expected, reader.join_and_sort_braille_nums_by_character(braille_nums_by_character)
+    end
   end
 end
