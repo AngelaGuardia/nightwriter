@@ -1,3 +1,6 @@
 require './lib/night_writer'
+require './lib/night_reader'
 
-NightWriter.new
+# NightWriter.new
+
+NightReader.new
