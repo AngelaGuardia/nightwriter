@@ -11,6 +11,7 @@ class NightReader
     @output_filename = ARGV[1]
     read
     write
+    puts confirmation_message
   end
 
   def read
@@ -18,16 +19,15 @@ class NightReader
   end
 
   def write
-    File.open(@output_filename, "w") { |f| f.write(translate_braille) }
+    File.open(@output_filename, "w") { |f| f.write(translate) }
     @output_file = File.read(@output_filename)
-    puts confirmation_message
   end
 
   def confirmation_message
     "Created '#{@output_filename}' containing #{output_file.length} characters"
   end
 
-  def translate_braille
+  def translate
     translator = Dictionary.new(true)
     braille_rows = @input_file.split("\n")
     translation = ""
