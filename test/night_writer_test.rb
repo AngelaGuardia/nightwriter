@@ -79,7 +79,7 @@ class NightWriterTest < Minitest::Test
   def test_it_can_split_strings
     str = "01234567890123456789012345678901234567890123456789"
     NightWriter.any_instance.stubs(:input_file).returns(str)
-    NightWriter.any_instance.stubs(:read)
+    NightWriter.any_instance.stubs(:read).returns(str)
     NightWriter.any_instance.stubs(:write)
     NightWriter.any_instance.stubs(:confirmation_message)
     writer = NightWriter.new

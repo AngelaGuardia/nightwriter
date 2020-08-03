@@ -1,6 +1,9 @@
 require './lib/line'
+require './lib/file_io'
 
 class NightWriter
+  include FileIO
+
   attr_reader :input_filename,
               :output_filename,
               :input_file,
@@ -9,18 +12,9 @@ class NightWriter
   def initialize
     @input_filename = ARGV[0]
     @output_filename = ARGV[1]
-    read
-    write
+    @input_file = read.delete("\n")
+    @output_file = write
     puts confirmation_message
-  end
-
-  def read
-    @input_file = File.read(@input_filename).delete("\n")
-  end
-
-  def write
-    File.open(@output_filename, "w") { |f| f.write(translate) }
-    @output_file = File.read(@output_filename)
   end
 
   def translate
