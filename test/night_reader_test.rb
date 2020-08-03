@@ -9,7 +9,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_exists
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
     NightReader.any_instance.stubs(:confirmation_message)
 
@@ -19,7 +19,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_can_read_filename_attributes
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
     NightReader.any_instance.stubs(:confirmation_message)
     Object.stub_const(:ARGV, ["braille", "translated"]) do
@@ -36,7 +36,7 @@ class NightReaderTest < Minitest::Test
 
       expected =  "0.0.0.0.0....00.0.0.00\n" +
                   "00.00.0..0..00.0000..0\n" +
-                  "....0.0.0....00.0.0..."
+                  "....0.0.0....00.0.0...\n"
 
       assert_equal expected, reader.read
     end
@@ -83,7 +83,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_can_translate_braille_row_to_braille_nums
-    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:read).returns("test string")
     NightReader.any_instance.stubs(:write)
     NightReader.any_instance.stubs(:confirmation_message)
     reader = NightReader.new
