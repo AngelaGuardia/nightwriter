@@ -1,7 +1,7 @@
 require './lib/dictionary'
 require './lib/file_io'
 
-class NightReader
+class Reader
   include FileIO
 
   attr_reader :input_filename,
@@ -86,5 +86,3 @@ class NightReader
     end
   end
 end
-
-NightReader.new
