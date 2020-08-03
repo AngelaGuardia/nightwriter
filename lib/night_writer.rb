@@ -18,13 +18,12 @@ class NightWriter
   end
 
   def write
-    @braille_text = write_braille
-    File.open(@output_filename, "w") { |f| f.write(@braille_text) }
+    File.open(@output_filename, "w") { |f| f.write(translate) }
     @output_file = File.read(@output_filename)
     puts confirmation_message
   end
 
-  def write_braille
+  def translate
     split_strings.reduce("") do |text, string|
       line = Line.new(string)
       text += line.render
