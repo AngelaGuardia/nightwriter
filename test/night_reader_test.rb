@@ -4,13 +4,22 @@ require 'minitest/stub_const'
 require 'mocha/minitest'
 
 class NightReaderTest < Minitest::Test
+  def setup
+    NightReader.any_instance.stubs(:puts)
+  end
+
   def test_it_exists
+    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:write)
+
     reader = NightReader.new
 
     assert_instance_of NightReader, reader
   end
 
   def test_it_can_read_filename_attributes
+    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:write)
     Object.stub_const(:ARGV, ["braille", "translated"]) do
       reader = NightReader.new
 
@@ -72,6 +81,8 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_it_can_translate_braille_row_to_braille_nums
+    NightReader.any_instance.stubs(:read)
+    NightReader.any_instance.stubs(:write)
     reader = NightReader.new
     row = ["0.", ".0", "00", ".."]
 
