@@ -1,17 +1,17 @@
 require './test/test_helper'
-require './lib/night_writer'
+require './lib/writer'
 require 'minitest/stub_const'
 require 'mocha/minitest'
 
-class NightWriterTest < Minitest::Test
+class WriterTest < Minitest::Test
   def setup
-    NightWriter.any_instance.stubs(:puts)
+    Writer.any_instance.stubs(:puts)
   end
 
   def test_it_exists
-    writer = NightWriter.new
+    writer = Writer.new
 
-    assert_instance_of NightWriter, writer
+    assert_instance_of Writer, writer
   end
 
   def test_it_takes_in_command_line_arguments
@@ -21,8 +21,8 @@ class NightWriterTest < Minitest::Test
   def test_it_can_read_filename_attributes
     File.stubs(:read).returns("test string")
     Object.stub_const(:ARGV, ["plain", "braille"]) do
-      NightWriter.any_instance.stubs(:write)
-      writer2 = NightWriter.new
+      Writer.any_instance.stubs(:write)
+      writer2 = Writer.new
 
       assert_equal "plain", writer2.input_filename
       assert_equal "braille", writer2.output_filename
@@ -31,15 +31,15 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_read_other_attributes
     File.stubs(:read).returns("stubbed")
-    writer = NightWriter.new
+    writer = Writer.new
 
     assert_equal "stubbed", writer.input_file
   end
 
   def test_assert_it_can_read_a_file
     Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
-      NightWriter.any_instance.stubs(:write)
-      writer = NightWriter.new
+      Writer.any_instance.stubs(:write)
+      writer = Writer.new
 
       assert_equal "hello world", writer.input_file
     end
@@ -47,8 +47,8 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_write_a_file
     Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
-      NightWriter.any_instance.stubs(:translate).returns("I can write")
-      writer = NightWriter.new
+      Writer.any_instance.stubs(:translate).returns("I can write")
+      writer = Writer.new
 
       expected =  "I can write"
 
@@ -58,7 +58,7 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_write_braille
     Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
-      writer = NightWriter.new
+      writer = Writer.new
 
       expected =  "0.0.0.0.0....00.0.0.00\n" +
                   "00.00.0..0..00.0000..0\n" +
@@ -70,7 +70,7 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_print_confirmation_message
     Object.stub_const(:ARGV, ["data/message_fixture.txt", "braille.txt"]) do
-      writer = NightWriter.new
+      writer = Writer.new
       expected = "Created 'braille.txt' containing 11 characters"
       assert_equal expected, writer.confirmation_message
     end
@@ -78,11 +78,11 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_split_strings
     str = "01234567890123456789012345678901234567890123456789"
-    NightWriter.any_instance.stubs(:input_file).returns(str)
-    NightWriter.any_instance.stubs(:read).returns(str)
-    NightWriter.any_instance.stubs(:write)
-    NightWriter.any_instance.stubs(:confirmation_message)
-    writer = NightWriter.new
+    Writer.any_instance.stubs(:input_file).returns(str)
+    Writer.any_instance.stubs(:read).returns(str)
+    Writer.any_instance.stubs(:write)
+    Writer.any_instance.stubs(:confirmation_message)
+    writer = Writer.new
 
     expected = ["0123456789012345678901234567890123456789", "0123456789"]
 

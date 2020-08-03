@@ -1,7 +1,7 @@
 require './lib/line'
 require './lib/file_io'
 
-class NightWriter
+class Writer
   include FileIO
 
   attr_reader :input_filename,
@@ -34,5 +34,3 @@ class NightWriter
     "Created '#{@output_filename}' containing #{@input_file.length} characters"
   end
 end
-
-NightWriter.new
