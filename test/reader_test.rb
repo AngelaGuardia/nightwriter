@@ -94,7 +94,7 @@ class ReaderTest < Minitest::Test
     assert_equal ["3", "6", "36", ""], reader.braille_nums_row3(row)
   end
 
-  def test_it_can_sort_braille_nums_by_character
+  def test_it_can_sort_braille_nums
     Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
       reader = Reader.new
       braille_nums_by_character = [["1", "25", ""],
@@ -111,7 +111,7 @@ class ReaderTest < Minitest::Test
 
       expected = ["125", "15", "123", "123", "135", "0", "2456", "135", "1235", "123", "145"]
 
-      assert_equal expected, reader.join_and_sort_braille_nums_by_character(braille_nums_by_character)
+      assert_equal expected, reader.sort(braille_nums_by_character)
     end
   end
 
@@ -125,4 +125,28 @@ class ReaderTest < Minitest::Test
       assert_equal expected, reader.braille_line_to_braille_nums(braille_line)
     end
   end
+
+  def test_it_can_group_braille_nums_by_character
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = Reader.new
+
+      braille_nums = [["1", "1", "1", "1", "1", "", "4", "1", "1", "1", "14"], ["25", "5", "2", "2", "5", "", "25", "5", "25", "2", "5"], ["", "", "3", "3", "3", "", "6", "3", "3", "3", ""]]
+
+      expected = [["1", "25", ""], ["1", "5", ""], ["1", "2", "3"], ["1", "2", "3"], ["1", "5", "3"], ["", "", ""], ["4", "25", "6"], ["1", "5", "3"], ["1", "25", "3"], ["1", "2", "3"], ["14", "5", ""]]
+
+      assert_equal expected, reader.group_by_character(braille_nums)
+    end
+  end
+
+  def test_it_can_translate_line
+    Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
+      reader = Reader.new
+      braille_line = ["0.0.0.0.0....00.0.0.00", "00.00.0..0..00.0000..0", "....0.0.0....00.0.0..."]
+
+      expected = ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
+
+      assert_equal expected, reader.translate_line(braille_line)
+    end
+  end
+
 end

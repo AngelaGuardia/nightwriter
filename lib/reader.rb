@@ -12,6 +12,7 @@ class Reader
   def initialize
     @input_filename = ARGV[0]
     @output_filename = ARGV[1]
+    @translator = Dictionary.new(true)
     @input_file = read.chomp
     @output_file = write
     puts confirmation_message
@@ -22,18 +23,18 @@ class Reader
   end
 
   def translate
-    translator = Dictionary.new(true)
     braille_rows = @input_file.split("\n")
     translation = ""
     while !braille_rows.empty?
-      braille_line = braille_rows.slice!(0, 3)
-      braille_nums_by_line = braille_line_to_braille_nums(braille_line)
-      braille_nums_by_character = braille_nums_by_line[0].zip(braille_nums_by_line[1], braille_nums_by_line[2])
-      braille_nums_by_character_sorted = join_and_sort_braille_nums_by_character(braille_nums_by_character)
-      translated_characters = braille_nums_by_character_sorted.map { |nums| translator.get(nums)}
-      translation += translated_characters.join
+      translation += translate_line(braille_rows.slice!(0, 3)).join
     end
     translation
+  end
+
+  def translate_line(braille_line)
+    braille_nums = braille_line_to_braille_nums(braille_line)
+    braille_nums_by_character_sorted = sort(group_by_character(braille_nums))
+    braille_nums_by_character_sorted.map { |nums| @translator.get(nums)}
   end
 
   def braille_line_to_braille_nums(braille_line)
@@ -47,6 +48,10 @@ class Reader
         braille_nums_row2(character_pairs)
       end
     end
+  end
+
+  def group_by_character(braille_nums)
+    braille_nums[0].zip(braille_nums[1], braille_nums[2])
   end
 
   def braille_nums_row1(row)
@@ -76,7 +81,7 @@ class Reader
     end
   end
 
-  def join_and_sort_braille_nums_by_character(braille_nums_by_character)
+  def sort(braille_nums_by_character)
     braille_nums_by_character.map do |nums|
       if nums.join == ""
         "0"
