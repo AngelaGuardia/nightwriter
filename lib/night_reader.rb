@@ -8,6 +8,8 @@ class NightReader
   def initialize
     @braille_filename = ARGV[0]
     @translated_filename = ARGV[1]
+    read
+    write
   end
 
   def read
@@ -17,6 +19,7 @@ class NightReader
   def write
     File.open(@translated_filename, "w") { |f| f.write(translate_braille) }
     @translated_file = File.read(@translated_filename)
+    puts confirmation_message
   end
 
   def confirmation_message
