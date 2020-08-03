@@ -24,8 +24,8 @@ class NightWriterTest < Minitest::Test
       NightWriter.any_instance.stubs(:write)
       writer2 = NightWriter.new
 
-      assert_equal "plain", writer2.plain_filename
-      assert_equal "braille", writer2.braille_filename
+      assert_equal "plain", writer2.input_filename
+      assert_equal "braille", writer2.output_filename
     end
   end
 
@@ -33,7 +33,7 @@ class NightWriterTest < Minitest::Test
     File.stubs(:read).returns("stubbed")
     writer = NightWriter.new
 
-    assert_equal "stubbed", writer.plain_file
+    assert_equal "stubbed", writer.input_file
   end
 
   def test_assert_it_can_read_a_file
@@ -41,7 +41,7 @@ class NightWriterTest < Minitest::Test
       NightWriter.any_instance.stubs(:write)
       writer = NightWriter.new
 
-      assert_equal "hello world", writer.plain_file
+      assert_equal "hello world", writer.input_file
     end
   end
 
@@ -52,7 +52,7 @@ class NightWriterTest < Minitest::Test
 
       expected =  "I can write"
 
-      assert_equal expected, writer.braille_file
+      assert_equal expected, writer.output_file
     end
   end
 
@@ -64,7 +64,7 @@ class NightWriterTest < Minitest::Test
                   "00.00.0..0..00.0000..0\n" +
                   "....0.0.0....00.0.0..."
 
-      assert_equal expected, writer.braille_file
+      assert_equal expected, writer.output_file
     end
   end
 
@@ -78,7 +78,7 @@ class NightWriterTest < Minitest::Test
 
   def test_it_can_split_strings
     str = "01234567890123456789012345678901234567890123456789"
-    NightWriter.any_instance.stubs(:plain_file).returns(str)
+    NightWriter.any_instance.stubs(:input_file).returns(str)
     NightWriter.any_instance.stubs(:read)
     NightWriter.any_instance.stubs(:write)
     writer = NightWriter.new

@@ -1,26 +1,26 @@
 require './lib/line'
 
 class NightWriter
-  attr_reader :plain_filename,
-              :braille_filename,
-              :plain_file,
-              :braille_file
+  attr_reader :input_filename,
+              :output_filename,
+              :input_file,
+              :output_file
 
   def initialize
-    @plain_filename = ARGV[0]
-    @braille_filename = ARGV[1]
+    @input_filename = ARGV[0]
+    @output_filename = ARGV[1]
     read
     write
   end
 
   def read
-    @plain_file = File.read(@plain_filename).delete("\n")
+    @input_file = File.read(@input_filename).delete("\n")
   end
 
   def write
     @braille_text = write_braille
-    File.open(@braille_filename, "w") { |f| f.write(@braille_text) }
-    @braille_file = File.read(@braille_filename)
+    File.open(@output_filename, "w") { |f| f.write(@braille_text) }
+    @output_file = File.read(@output_filename)
     puts confirmation_message
   end
 
@@ -34,11 +34,11 @@ class NightWriter
   end
 
   def split_strings
-    plain_file.downcase.scan(/.{1,40}/)
+    input_file.downcase.scan(/.{1,40}/)
   end
 
   def confirmation_message
-    "Created '#{@braille_filename}' containing #{@plain_file.length} characters"
+    "Created '#{@output_filename}' containing #{@input_file.length} characters"
   end
 end
 
