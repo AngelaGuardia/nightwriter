@@ -23,8 +23,8 @@ class NightReaderTest < Minitest::Test
     Object.stub_const(:ARGV, ["braille", "translated"]) do
       reader = NightReader.new
 
-      assert_equal "braille", reader.braille_filename
-      assert_equal "translated", reader.translated_filename
+      assert_equal "braille", reader.input_filename
+      assert_equal "translated", reader.output_filename
     end
   end
 
@@ -46,14 +46,14 @@ class NightReaderTest < Minitest::Test
       reader = NightReader.new
       reader.write
 
-      assert_equal "I can translate", reader.translated_file
+      assert_equal "I can translate", reader.output_file
     end
   end
 
   def test_it_can_print_confirmation_message
     Object.stub_const(:ARGV, ["data/braille_fixture.txt", "original_message.txt"]) do
       reader = NightReader.new
-      reader.stubs(:translated_file).returns("hello world")
+      reader.stubs(:output_file).returns("hello world")
       expected = "Created 'original_message.txt' containing 11 characters"
 
       assert_equal expected, reader.confirmation_message

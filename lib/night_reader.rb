@@ -1,34 +1,35 @@
 require './lib/dictionary'
 
 class NightReader
-  attr_reader :braille_filename,
-              :translated_filename,
-              :translated_file
+  attr_reader :input_filename,
+              :output_filename,
+              :input_file,
+              :output_file
 
   def initialize
-    @braille_filename = ARGV[0]
-    @translated_filename = ARGV[1]
+    @input_filename = ARGV[0]
+    @output_filename = ARGV[1]
     read
     write
   end
 
   def read
-    @braille_file = File.read(@braille_filename).chomp
+    @input_file = File.read(@input_filename).chomp
   end
 
   def write
-    File.open(@translated_filename, "w") { |f| f.write(translate_braille) }
-    @translated_file = File.read(@translated_filename)
+    File.open(@output_filename, "w") { |f| f.write(translate_braille) }
+    @output_file = File.read(@output_filename)
     puts confirmation_message
   end
 
   def confirmation_message
-    "Created '#{@translated_filename}' containing #{translated_file.length} characters"
+    "Created '#{@output_filename}' containing #{output_file.length} characters"
   end
 
   def translate_braille
     translator = Dictionary.new(true)
-    braille_rows = @braille_file.split("\n")
+    braille_rows = @input_file.split("\n")
     translation = ""
     while !braille_rows.empty?
       braille_line = braille_rows.slice!(0, 3)
