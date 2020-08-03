@@ -33,8 +33,7 @@ class Reader
 
   def translate_line(braille_line)
     braille_nums = braille_line_to_braille_nums(braille_line)
-    braille_nums_by_character = braille_nums[0].zip(braille_nums[1], braille_nums[2])
-    braille_nums_by_character_sorted = join_and_sort_braille_nums_by_character(braille_nums_by_character)
+    braille_nums_by_character_sorted = sort(group_by_character(braille_nums))
     braille_nums_by_character_sorted.map { |nums| @translator.get(nums)}
   end
 
@@ -51,7 +50,9 @@ class Reader
     end
   end
 
-
+  def group_by_character(braille_nums)
+    braille_nums[0].zip(braille_nums[1], braille_nums[2])
+  end
 
   def braille_nums_row1(row)
     row.map do |chars|
@@ -80,7 +81,7 @@ class Reader
     end
   end
 
-  def join_and_sort_braille_nums_by_character(braille_nums_by_character)
+  def sort(braille_nums_by_character)
     braille_nums_by_character.map do |nums|
       if nums.join == ""
         "0"
