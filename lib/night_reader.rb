@@ -27,26 +27,28 @@ class NightReader
     translator = Dictionary.new(true)
     braille_rows = @braille_file.split("\n")
     translation = ""
-    row1, row2, row3 = [], [], []
     while !braille_rows.empty?
       braille_line = braille_rows.slice!(0, 3)
-      braille_line.each_with_index do |row, index|
-        character_pairs = row.scan(/.{2}/)
-        if index == 0
-          row1 = braille_nums_row1(character_pairs)
-        elsif index == 1
-          row2 = braille_nums_row2(character_pairs)
-        else
-          row3 = braille_nums_row3(character_pairs)
-        end
-      end
-
-      braille_nums_by_character = row1.zip(row2, row3)
+      braille_nums_by_line = braille_line_to_braille_nums(braille_line)
+      braille_nums_by_character = braille_nums_by_line[0].zip(braille_nums_by_line[1], braille_nums_by_line[2])
       braille_nums_by_character_sorted = join_and_sort_braille_nums_by_character(braille_nums_by_character)
       translated_characters = braille_nums_by_character_sorted.map { |nums| translator.get(nums)}
       translation += translated_characters.join
     end
     translation
+  end
+
+  def braille_line_to_braille_nums(braille_line)
+    braille_line.map do |row|
+      character_pairs = row.scan(/.{2}/)
+      if row == braille_line.first
+        braille_nums_row1(character_pairs)
+      elsif row == braille_line.last
+        braille_nums_row3(character_pairs)
+      else
+        braille_nums_row2(character_pairs)
+      end
+    end
   end
 
   def braille_nums_row1(row)
